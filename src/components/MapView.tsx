@@ -19,46 +19,53 @@ export type Props = {
 export const Component: FC<Props> = ({ events, geocodes }) => {
   const visibleEvents = events.filter((e) => e.location in geocodes);
   return (
-    <MapContainer
-      bounds={worldBounds}
-      maxBounds={maxBounds}
-      center={[30, 0]}
-      zoom={2}
-      style={{
-        height: '50vh',
-        maxWidth: '100vw',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-      }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {visibleEvents.map((e) => (
-        <Marker
-          position={geocodes[e.location]}
-          key={e.uid}
-          icon={
-            new Icon({
-              iconUrl: markerIconPng,
-              iconSize: [25, 41],
-              iconAnchor: [12, 41],
-            })
-          }
-        >
-          <Popup>
-            <p>
-              {/* biome-ignore lint: Use html of calendar event. */}
-              <strong dangerouslySetInnerHTML={{__html: e.body}} />
-            </p>
-            <ul>
-              <li>Date: {e.begin} - {e.end}</li>
-            </ul>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <>
+      <p style={{ textAlign: 'right' }}>
+        This map displays {visibleEvents.length} events.
+      </p>
+      <MapContainer
+        bounds={worldBounds}
+        maxBounds={maxBounds}
+        center={[30, 0]}
+        zoom={2}
+        style={{
+          height: '50vh',
+          maxWidth: '100vw',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {visibleEvents.map((e) => (
+          <Marker
+            position={geocodes[e.location]}
+            key={e.uid}
+            icon={
+              new Icon({
+                iconUrl: markerIconPng,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+              })
+            }
+          >
+            <Popup>
+              <p>
+                {/* biome-ignore lint: Use html of calendar event. */}
+                <strong dangerouslySetInnerHTML={{ __html: e.body }} />
+              </p>
+              <ul>
+                <li>
+                  Date: {e.begin} - {e.end}
+                </li>
+              </ul>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </>
   );
 };
 
