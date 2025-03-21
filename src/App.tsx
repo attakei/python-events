@@ -1,5 +1,4 @@
 import 'leaflet/dist/leaflet.css';
-import './App.css';
 import { events, geocodes } from './assets';
 import MapView from './components/MapView';
 
