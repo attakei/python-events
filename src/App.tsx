@@ -3,12 +3,16 @@ import 'leaflet/dist/leaflet.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { events, geocodes } from './assets';
 import MapView from './components/MapView';
+import Nav from './components/Nav';
+import { Container } from 'react-bulma-components';
 
 function App() {
   return (
     <>
-      <h1>Python Events</h1>
-      <MapView events={events} geocodes={geocodes} />
+      <Nav />
+      <Container style={{marginTop: 'var(--bulma-navbar-height)'}}>
+        <MapView events={events} geocodes={geocodes} />
+      </Container>
     </>
   );
 }
