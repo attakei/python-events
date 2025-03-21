@@ -6,6 +6,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 import { program } from 'commander';
+import PQueue from 'p-queue';
 import type { CalendarEvent, GeocodeData } from '../src/types';
 
 program
@@ -27,17 +28,21 @@ program
     const locations = Array.from(
       new Set(Object.values(events).map((e) => e.location)),
     ).filter((l) => !(l in master));
+    const queue = new PQueue({ concurrency: 5 });
     for (const l of locations) {
-      const url = `https://nominatim.openstreetmap.org/search?q=${l.replace(/ /g, '+')}&format=json&limit=1`;
-      console.log(url);
-      const geoData = await fetch(url).then((resp) => resp.json());
-      if (geoData.length !== 0)
-        master[l] = {
-          lat: Number.parseFloat(geoData[0].lat),
-          lng: Number.parseFloat(geoData[0].lon),
-        };
-      await setTimeout(Math.random() * 5000);
+      queue.add(async () => {
+        const url = `https://nominatim.openstreetmap.org/search?q=${l.replace(/ /g, '+')}&format=json&limit=1`;
+        console.log(url);
+        const geoData = await fetch(url).then((resp) => resp.json());
+        if (geoData.length !== 0)
+          master[l] = {
+            lat: Number.parseFloat(geoData[0].lat),
+            lng: Number.parseFloat(geoData[0].lon),
+          };
+        await setTimeout(1000);
+      });
     }
+    await queue.onIdle();
 
     writeFileSync(masterPath, JSON.stringify(master));
   });
