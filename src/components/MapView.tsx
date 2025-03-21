@@ -26,7 +26,7 @@ export const Component: FC<Props> = ({ events, geocodes }) => {
       zoom={2}
       style={{
         height: '50vh',
-        maxWidth: '50vw',
+        maxWidth: '100vw',
         marginLeft: 'auto',
         marginRight: 'auto',
       }}
