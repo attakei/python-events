@@ -1,7 +1,6 @@
 import L from 'leaflet';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState } from 'react';
 import './App.css';
 import { events, geocodes } from './assets';
 
