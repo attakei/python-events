@@ -1,4 +1,6 @@
+import 'bulma/css/bulma.min.css';
 import 'leaflet/dist/leaflet.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { events, geocodes } from './assets';
 import MapView from './components/MapView';
 
