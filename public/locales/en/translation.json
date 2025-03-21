@@ -1,0 +1,4 @@
+{
+  "scheduled-events": "{{count}} events are scheduled.",
+  "display-events": "This map displays {{count}} events."
+}
