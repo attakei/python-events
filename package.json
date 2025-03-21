@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "biome check --no-errors-on-unmatched --files-ignore-unknown=true .",
     "preview": "vite preview",
-    "postinstall": "lefthook install"
+    "postinstall": "concurrently 'lefthook install' 'tsx tools/setup-stub.ts'"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -16,10 +16,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
     "globals": "^15.15.0",
+    "tsx": "^4.19.3",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   }
