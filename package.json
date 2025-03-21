@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prebuild": "run-s prebuild:fetch-events prebuild:fetch-geocodes",
+    "prebuild:fetch-events": "tsx tools/fetch-calendar-events --out=src/assets/ -a",
+    "prebuild:fetch-geocodes": "tsx tools/fetch-geocode-data --master=src/assets/geocodes.json --input=src/assets/events.json",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "biome check --no-errors-on-unmatched --files-ignore-unknown=true .",
