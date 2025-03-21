@@ -47,7 +47,15 @@ export const Component: FC<Props> = ({ events, geocodes }) => {
             })
           }
         >
-          <Popup>{e.title}</Popup>
+          <Popup>
+            <p>
+              {/* biome-ignore lint: Use html of calendar event. */}
+              <strong dangerouslySetInnerHTML={{__html: e.body}} />
+            </p>
+            <ul>
+              <li>Date: {e.begin} - {e.end}</li>
+            </ul>
+          </Popup>
         </Marker>
       ))}
     </MapContainer>
