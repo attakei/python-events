@@ -5,4 +5,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   base: '/python-events/',
+  define: {
+    BUILD_TIMESTAMP: JSON.stringify(new Date().toISOString()),
+  },
 });
