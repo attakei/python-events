@@ -13,6 +13,6 @@ export type CalendarMaster = {
   color?: string;
 };
 
-export type Geocode = [number, number];
+export type Geocode = { lat: number; lng: number };
 
 export type GeocodeData = { [key: string]: Geocode };

@@ -32,10 +32,10 @@ program
       console.log(url);
       const geoData = await fetch(url).then((resp) => resp.json());
       if (geoData.length !== 0)
-        master[l] = [
-          Number.parseFloat(geoData[0].lat),
-          Number.parseFloat(geoData[0].lon),
-        ];
+        master[l] = {
+          lat: Number.parseFloat(geoData[0].lat),
+          lng: Number.parseFloat(geoData[0].lon),
+        };
       await setTimeout(Math.random() * 5000);
     }
 
