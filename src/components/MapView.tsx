@@ -5,6 +5,7 @@ import L from 'leaflet';
 import { Icon } from 'leaflet';
 import markerIconPng from 'leaflet/dist/images/marker-icon.png';
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { CalendarEvent, GeocodeData } from '../types';
 
@@ -17,11 +18,12 @@ export type Props = {
 };
 
 export const Component: FC<Props> = ({ events, geocodes }) => {
+  const { t } = useTranslation();
   const visibleEvents = events.filter((e) => e.location in geocodes);
   return (
     <>
       <p style={{ textAlign: 'right' }}>
-        This map displays {visibleEvents.length} events.
+        {t('display-events', { count: visibleEvents.length })}
       </p>
       <MapContainer
         bounds={worldBounds}
