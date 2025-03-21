@@ -3,8 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';
 import './App.css';
-import events from './assets/events.json';
-import geocodes from './assets/geocodes.json';
+import { events, geocodes } from './assets';
 
 function App() {
   const worldBounds = L.latLngBounds([-90, -180], [90, 180]);
