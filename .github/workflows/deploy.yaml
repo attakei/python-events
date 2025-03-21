@@ -24,6 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
+      - name: 'Restore assets'
+        id: cache-assets-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: 'src/assets'
+          key: 'assets-${{ github.ref_name }}'
       - name: 'Set up workspace'
         run: |
           pnpm i
@@ -32,6 +38,12 @@ jobs:
           pnpm tsx tools/fetch-calendar-events.ts --out=src/assets -a
           pnpm tsx tools/fetch-geocode-data.ts --master src/assets/geocodes.json --input src/assets/events.json
           pnpm build
+      - name: 'Cache assets'
+        id: cache-assets-save
+        uses: actions/cache@v4
+        with:
+          path: 'src/assets'
+          key: '${{ steps.cache-assets-restore.outputs.cache-primary-key }}'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
