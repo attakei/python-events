@@ -44,6 +44,11 @@ jobs:
         with:
           path: 'src/assets'
           key: '${{ steps.cache-assets-restore.outputs.cache-primary-key }}'
+      - name: 'Upload artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-assets
+          path: src/assets/*.json
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
