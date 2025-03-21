@@ -18,7 +18,7 @@ export type Props = {
 };
 
 export const Component: FC<Props> = ({ events, geocodes }) => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const visibleEvents = events.filter((e) => e.location in geocodes);
   return (
     <>
@@ -39,7 +39,7 @@ export const Component: FC<Props> = ({ events, geocodes }) => {
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url={`https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png?lang=${i18n.language}`}
         />
         {visibleEvents.map((e) => (
           <Marker
