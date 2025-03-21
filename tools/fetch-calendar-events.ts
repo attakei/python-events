@@ -31,6 +31,9 @@ program
       const calendar = convertIcsCalendar(undefined, icsText);
       const events: CalendarEvent[] = (calendar.events || [])
         .map((e) => {
+          if (e.description?.startsWith('<a ')) {
+            e.description = `<a target="_blank" ${e.description.slice(3)}`;
+          }
           return {
             group,
             uid: e.uid,
