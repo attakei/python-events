@@ -8,9 +8,15 @@ import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { CalendarEvent, GeocodeData } from '../types';
+import './MapView.css';
 
 const worldBounds = L.latLngBounds([-90, -180], [90, 180]);
 const maxBounds = L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180));
+const sizes: { [key: string]: [number, number] } = {
+  default: [25, 41],
+  large: [25, 41],
+  small: [17, 27],
+};
 
 export type Props = {
   events: CalendarEvent[];
@@ -48,12 +54,12 @@ export const Component: FC<Props> = ({ events, geocodes }) => {
             icon={
               new Icon({
                 iconUrl: markerIconPng,
-                iconSize: [25, 41],
+                iconSize: e.group in sizes ? sizes[e.group] : sizes.default,
                 iconAnchor: [12, 41],
               })
             }
           >
-            <Popup>
+            <Popup offset={[0, -15]}>
               <p>
                 {/* biome-ignore lint: Use html of calendar event. */}
                 <strong dangerouslySetInnerHTML={{ __html: e.body }} />
