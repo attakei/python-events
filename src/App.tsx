@@ -10,6 +10,8 @@ import Nav from './components/Nav';
 
 function App() {
   const { t } = useTranslation();
+  const countAllEvents = events.length;
+
   return (
     <>
       <Nav />
@@ -19,7 +21,7 @@ function App() {
           minHeight: 'calc(100vh - 170px)',
         }}
       >
-        <Heading>{t('scheduled-events', { count: events.length })}</Heading>
+        <Heading>{t('scheduled-events', { count: countAllEvents })}</Heading>
         <MapView events={events} geocodes={geocodes} />
       </Container>
       <Footer />
