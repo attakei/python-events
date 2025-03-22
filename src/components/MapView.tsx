@@ -8,6 +8,7 @@ import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { CalendarEvent, GeocodeData } from '../types';
+import './MapView.css';
 
 const worldBounds = L.latLngBounds([-90, -180], [90, 180]);
 const maxBounds = L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180));
@@ -58,7 +59,7 @@ export const Component: FC<Props> = ({ events, geocodes }) => {
               })
             }
           >
-            <Popup>
+            <Popup offset={[0, -15]}>
               <p>
                 {/* biome-ignore lint: Use html of calendar event. */}
                 <strong dangerouslySetInnerHTML={{ __html: e.body }} />
